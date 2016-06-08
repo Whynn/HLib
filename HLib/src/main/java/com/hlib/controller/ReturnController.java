@@ -40,7 +40,7 @@ public class ReturnController {
 		return "request";
 	}
 
-	@RequestMapping(value = "/return", method = RequestMethod.GET)
+	@RequestMapping(value = "/return")
 	public String Return(HttpServletRequest request, Model model) {
 		// ���� log
 		System.out.println("return()");
@@ -52,6 +52,8 @@ public class ReturnController {
 		}
 		String memberID = request.getParameter("memberID");
 		String ISBN = request.getParameter("ISBN");
+		System.out.println(memberID);
+		System.out.println(ISBN);
 		try {
 			returnService.returnBook(memberID, ISBN);
 		} catch (Exception e) {

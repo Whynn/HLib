@@ -21,25 +21,36 @@ public class MemberInfoDAO {
 	public void setDataSource(DataSource dataSource) {
 		this.jdbcTemplateObject = new JdbcTemplate(dataSource);
 	}
+
 	public int getRowCount() {
 		String sqlStatement = "select count(*) from memberinfo";
 		return this.jdbcTemplateObject.queryForObject(sqlStatement, Integer.class);
 	}
+
 	public MemberInfo getMemberInfo(String memberID) {
-		String sqlStatement = "select * from memberinfo where MemberID=?";
-		return jdbcTemplateObject.queryForObject(sqlStatement, new Object[]{memberID}, new MemberInfoMapper());
+		String sqlStatement = "select * from memberinfo where MemberID = ?";
+		return jdbcTemplateObject.queryForObject(sqlStatement, new Object[] { memberID }, new MemberInfoMapper());
 	}
-	public List<MemberInfo> getGoodUser(){
+
+	public List<MemberInfo> getGoodUser() {
+		System.out.println("getGoodUser()");
+
+		if (jdbcTemplateObject == null) {
+			System.out.println("object == null");
+		} else
+			System.out.println("object != null");
+
 		String sqlStatement = "select * from memberinfo order by AllPoint DESC";
 		return jdbcTemplateObject.query(sqlStatement, new MemberInfoMapper());
 	}
-	public boolean update(MemberInfo memberInfo){
+
+	public boolean update(MemberInfo memberInfo) {
 		String memberID = memberInfo.getMemberID();
 		int all = memberInfo.getAllPoint();
 		int month = memberInfo.getMonthPoint();
 		int borrowedBook = memberInfo.getBorrowedBookCount();
-		
-		String sqlStatement = "update memberinfo set AllPoint=?, MonthPoint=?, BorrowedBookCount=? where MemberID=?";
-		return (jdbcTemplateObject.update(sqlStatement, new Object[]{all, month, borrowedBook, memberID}) == 1);
+
+		String sqlStatement = "update memberinfo set AllPoint = ?, MonthPoint = ?, BorrowedBookCount = ? where MemberID = ?";
+		return (jdbcTemplateObject.update(sqlStatement, new Object[] { all, month, borrowedBook, memberID }) == 1);
 	}
 }

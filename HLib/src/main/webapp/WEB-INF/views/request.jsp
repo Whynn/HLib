@@ -7,10 +7,10 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<form>
+	<form name ="form" method ="post" action="./return">
 		Book ID (ISBN) : <input type="text" name="ISBN"><br />
 		User ID : <input type="text" name="memberID"><br />
-		<input type="button" value="¹Ý³³ÇÏ±â" onclick="location.href='./return'"><br />
+		<input type="submit" value="¹Ý³³ÇÏ±â"><br />
 	</form>
 </body>
 </html>

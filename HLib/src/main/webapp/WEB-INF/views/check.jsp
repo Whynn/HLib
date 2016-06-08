@@ -10,7 +10,7 @@
 	<form action="">
 		Complete return. <br />
 		Please click button to go return request page.<br />
-		<input type="button" value="go back" onclick="location.href='./request'"> <br />
+		<input type="button" value="go back" onclick="location.href='./'"> <br />
 	</form>
 
 </body>

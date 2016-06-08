@@ -4,10 +4,12 @@ import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.util.List;
 
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
@@ -30,7 +32,7 @@ public class BorrowInfoDAO {
 		return this.jdbcTemplateObject.queryForObject(sqlStatement, Integer.class);
 	}
 	public BorrowInfo getBorrowInfo(String memberID, String ISBN) {
-		String sqlStatement = "select * from borrowinfo where MemberInfo_MemberID=? and BookInfo_ISBN=?";
+		String sqlStatement = "select * from borrowinfo where MemberInfo_MemberID = ? and BookInfo_ISBN = ? and ReturnDate = null";
 		return jdbcTemplateObject.queryForObject(sqlStatement, new Object[]{memberID, ISBN}, new BorrowInfoMapper());
 	}
 	public boolean insert(BorrowInfo borrowInfo){
@@ -38,7 +40,7 @@ public class BorrowInfoDAO {
 		String ISBN = borrowInfo.getBookInfo_ISBN();
 		String memberID = borrowInfo.getMemberInfo_MemberID();
 		
-		String sqlStatement = "insert borrowinfo BookInfo_ISBN=?, MemeberInfo_MemberID=?, BorrowedDate=?";
+		String sqlStatement = "insert borrowinfo BookInfo_ISBN = ?, MemeberInfo_MemberID = ?, BorrowedDate = ?";
 		return (jdbcTemplateObject.update(sqlStatement, new Object[]{ISBN, memberID, borrowDate}) == 1);
 	}
 	public boolean update(BorrowInfo borrowInfo){
@@ -46,7 +48,7 @@ public class BorrowInfoDAO {
 		String ISBN = borrowInfo.getBookInfo_ISBN();
 		String memberID = borrowInfo.getMemberInfo_MemberID();
 		
-		String sqlStatement = "update borrowinfo set ReturnDate=? where MemberInfo_MemberID=? and BookInfo_ISBN=?";
+		String sqlStatement = "update borrowinfo set ReturnDate = ? where MemberInfo_MemberID = ? and BookInfo_ISBN = ?";
 		return (jdbcTemplateObject.update(sqlStatement, new Object[]{returnDate, memberID, ISBN}) == 1);
 	}
 }

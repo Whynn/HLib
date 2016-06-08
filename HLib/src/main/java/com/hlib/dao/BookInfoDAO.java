@@ -29,14 +29,14 @@ public class BookInfoDAO {
 		return this.jdbcTemplateObject.queryForObject(sqlStatement, Integer.class);
 	}
 	public BookInfo getBookInfo(String ISBN) {
-		String sqlStatement = "select * from bookinfo where ISBN=?";
+		String sqlStatement = "select * from bookinfo where ISBN = ?";
 		return jdbcTemplateObject.queryForObject(sqlStatement, new Object[]{ISBN}, new RowMapper<BookInfo>(){
 			@Override
 			public BookInfo mapRow(ResultSet rs, int row) throws SQLException {
 				// TODO Auto-generated method stub
 				BookInfo bookInfo = new BookInfo();
 				
-				bookInfo.setISBN(rs.getString("BookInfo_ISBN"));
+				bookInfo.setISBN(rs.getString("ISBN"));
 				bookInfo.setBookName(rs.getString("BookName"));
 				bookInfo.setBookState(rs.getInt("BookState"));
 								
@@ -48,7 +48,7 @@ public class BookInfoDAO {
 		String ISBN = bookInfo.getISBN();
 		int bookState = bookInfo.getBookState();
 		
-		String sqlStatement = "update bookinfo set BookState=? where ISBN=?";
+		String sqlStatement = "update bookinfo set BookState = ? where ISBN = ?";
 		return (jdbcTemplateObject.update(sqlStatement, new Object[]{bookState, ISBN}) == 1);
 	}
 
@@ -57,7 +57,7 @@ public class BookInfoDAO {
 		String bookName = bookInfo.getBookName();
 		int bookState = bookInfo.getBookState();
 		
-		String sqlStatement = "insert bookinfo ISBN=?, BookName=?, BookState=?";
+		String sqlStatement = "insert bookinfo ISBN = ?, BookName = ?, BookState = ?";
 		return (jdbcTemplateObject.update(sqlStatement, new Object[]{ISBN, bookName, bookState}) == 1);
 	}
 }

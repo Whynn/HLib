@@ -4,12 +4,12 @@ import java.text.Collator;
 import java.util.Comparator;
 
 public class MemberInfo {
-	private String memberID;
-	private int borrowableTerm;
-	private int monthPoint;
-	private int allPoint;
-	private int borrowedBookCount;
-	private int borrowableBookCount;
+	private String MemberID;
+	private int BorrowableTerm;
+	private int MonthPoint;
+	private int AllPoint;
+	private int BorrowedBookCount;
+	private int BorrowableBookCount;
 	/*
 	private final static Comparator myComparator = new Comparator(){
 		private final Collator collator = Collator.getInstance();
@@ -24,62 +24,64 @@ public class MemberInfo {
 
 	}
 
-	public MemberInfo(String memberID, int borrowableTerm, int monthPoint, int allPoint, int borrowedBookCount,
-			int borrowableBookCount) {
+	public MemberInfo(String MemberID, int BorrowableTerm, int MonthPoint, int AllPoint, int BorrowedBookCount,
+			int BorrowableBookCount) {
 		super();
-		this.memberID = memberID;
-		this.borrowableTerm = borrowableTerm;
-		this.monthPoint = monthPoint;
-		this.allPoint = allPoint;
-		this.borrowedBookCount = borrowedBookCount;
-		this.borrowableBookCount = borrowableBookCount;
+		this.MemberID = MemberID;
+		this.BorrowableTerm = BorrowableTerm;
+		this.MonthPoint = MonthPoint;
+		this.AllPoint = AllPoint;
+		this.BorrowedBookCount = BorrowedBookCount;
+		this.BorrowableBookCount = BorrowableBookCount;
 	}
 
 	public String getMemberID() {
-		return memberID;
+		return MemberID;
 	}
 
 	public void setMemberID(String memberID) {
-		this.memberID = memberID;
+		MemberID = memberID;
 	}
 
 	public int getBorrowableTerm() {
-		return borrowableTerm;
+		return BorrowableTerm;
 	}
 
 	public void setBorrowableTerm(int borrowableTerm) {
-		this.borrowableTerm = borrowableTerm;
+		BorrowableTerm = borrowableTerm;
 	}
 
 	public int getMonthPoint() {
-		return monthPoint;
+		return MonthPoint;
 	}
 
 	public void setMonthPoint(int monthPoint) {
-		this.monthPoint = monthPoint;
+		MonthPoint = monthPoint;
 	}
 
 	public int getAllPoint() {
-		return allPoint;
+		return AllPoint;
 	}
 
 	public void setAllPoint(int allPoint) {
-		this.allPoint = allPoint;
+		AllPoint = allPoint;
 	}
 
 	public int getBorrowedBookCount() {
-		return borrowedBookCount;
+		return BorrowedBookCount;
 	}
 
 	public void setBorrowedBookCount(int borrowedBookCount) {
-		this.borrowedBookCount = borrowedBookCount;
+		BorrowedBookCount = borrowedBookCount;
 	}
 
 	public int getBorrowableBookCount() {
-		return borrowableBookCount;
+		return BorrowableBookCount;
 	}
 
 	public void setBorrowableBookCount(int borrowableBookCount) {
-		this.borrowableBookCount = borrowableBookCount;
+		BorrowableBookCount = borrowableBookCount;
 	}
+
+	
 }

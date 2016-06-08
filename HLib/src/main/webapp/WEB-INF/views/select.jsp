@@ -11,11 +11,11 @@
 <body>
 	<!-- print List of Good Users -->
 	<table>
-		<c:forEach items="${members}" var="result" varStatus="status">
+		<c:forEach items="${members}" var="members" varStatus="status">
 			<tr>
-				<td><c:out value="${status.count}"></c:out></td>
+				<td><c:out value="${status.count}. "></c:out></td>
 				<td><c:out value="${members.memberID}"></c:out></td>
-				<td><c:out value="${members.AllPoint}"></c:out></td>
+				<td><c:out value="${members.allPoint}"></c:out></td>
 			</tr>
 		</c:forEach>
 	</table>

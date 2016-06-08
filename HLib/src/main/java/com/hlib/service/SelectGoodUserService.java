@@ -19,8 +19,9 @@ public class SelectGoodUserService {
 	}
 
 	public List<MemberInfo> select() {
+		System.out.println("select()");
 		List<MemberInfo> memberList = memberInfoDAO.getGoodUser(); // 내림차순 정렬된 리스트
-		
+		/*
 		int size = 5;
 		if (memberList.size() < 5) {
 			size = memberList.size();
@@ -30,5 +31,7 @@ public class SelectGoodUserService {
 			selectedUser.add(memberList.get(i));
 		}
 		return selectedUser;
+		*/
+		return memberList;
 	}
 }

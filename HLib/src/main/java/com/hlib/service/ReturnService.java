@@ -2,6 +2,7 @@ package com.hlib.service;
 
 import java.sql.Date;
 import java.text.SimpleDateFormat;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -48,28 +49,32 @@ public class ReturnService {
 	
 	public void returnBook(String memberID, String ISBN) {
 		
-		//SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd"); // ¿À´Ã ³¯Â¥¸¦ ±¸ÇÏ±â À§ÇØ
-		//String ss = sdf.format(new java.util.Date()); // ¿À´Ã ³¯Â¥
+		//SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd"); // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Â¥ï¿½ï¿½ ï¿½ï¿½ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½ï¿½
+		//String ss = sdf.format(new java.util.Date()); // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Â¥
 		Date returnDate = new Date(System.currentTimeMillis());
 
 		BorrowInfo borrowInfo = getBorrowInfo(memberID, ISBN);
 
-		borrowInfo.setReturnDate(returnDate);				// ¿À´Ã ³¯Â¥ ¼³Á¤
-		borrowInfoDAO.update(borrowInfo); 						// ´ë¿© ÀÌ·Â °»½Å
+		borrowInfo.setReturnDate(returnDate);				// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Â¥ ï¿½ï¿½ï¿½ï¿½
+		borrowInfoDAO.update(borrowInfo); 						// ï¿½ë¿© ï¿½Ì·ï¿½ ï¿½ï¿½ï¿½ï¿½
 		System.out.println("Update BorrowInfo.");
 
 		MemberInfo memberInfo = getMemberInfo(memberID);
 		
-		int point = calcPoint(memberInfo.getBorrowableTerm(), borrowInfo.getBorrowDate(), returnDate);	// ´ë¿©±â°£ °è»ê
+		int point = calcPoint(memberInfo.getBorrowableTerm(), borrowInfo.getBorrowDate(), returnDate);	// ï¿½ë¿©ï¿½â°£ ï¿½ï¿½ï¿½
+		System.out.println("point = " + point);
 		
 		memberInfo.setAllPoint(memberInfo.getAllPoint() + point);
 		memberInfo.setMonthPoint(memberInfo.getMonthPoint() + point);
-		memberInfo.setBorrowedBookCount(memberInfo.getBorrowedBookCount() - 1);
-		memberInfoDAO.update(memberInfo);						// È¸¿øÁ¤º¸ °»½Å
+		int borrowedBook = memberInfo.getBorrowedBookCount();
+		memberInfo.setBorrowedBookCount(borrowedBook - 1);
+		memberInfoDAO.update(memberInfo);						// È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+		System.out.println("update memberInfo");
 		
 		BookInfo bookInfo = getBookInfo(ISBN);
 		bookInfo.setBookState(1);
-		bookInfoDAO.update(bookInfo);							// µµ¼­Á¤º¸ °»½Å
+		bookInfoDAO.update(bookInfo);							// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+		System.out.println("update bookInfo");
 	}
 	public int calcPoint(int borrowableTerm, Date start, Date end){
 		if(end.compareTo(start) > borrowableTerm){
