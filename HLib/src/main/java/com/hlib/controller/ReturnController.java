@@ -42,8 +42,9 @@ public class ReturnController {
 
 	@RequestMapping(value = "/return")
 	public String Return(HttpServletRequest request, Model model) {
-		// ���� log
+		// log
 		System.out.println("return()");
+		boolean result = false;
 		try {
 			request.setCharacterEncoding("utf-8");
 		} catch (UnsupportedEncodingException e) {
@@ -55,12 +56,14 @@ public class ReturnController {
 		System.out.println(memberID);
 		System.out.println(ISBN);
 		try {
-			returnService.returnBook(memberID, ISBN);
+			result = returnService.returnBook(memberID, ISBN);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
-		return "check";
+		if(result)
+			return "check";
+		else
+			return "fail";	
 	}
 
 	@RequestMapping(value = "/check", method = RequestMethod.GET)
@@ -69,17 +72,13 @@ public class ReturnController {
 		try {
 			request.setCharacterEncoding("utf-8");
 		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		// iReturn = new ReturnManager();
 
 		String memberID = request.getParameter("memberID");
 		String ISBN = request.getParameter("ISBN");
 
 		model.addAttribute("Request", request);
-
-		// iReturn.execute(model, memberID, ISBN);
 
 		return "redirect:home";
 

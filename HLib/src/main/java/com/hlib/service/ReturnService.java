@@ -46,45 +46,46 @@ public class ReturnService {
 	public BorrowInfo getBorrowInfo(String memberID, String ISBN) {
 		return borrowInfoDAO.getBorrowInfo(memberID, ISBN);
 	}
-	
-	public void returnBook(String memberID, String ISBN) {
-		
-		//SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd"); // ���� ��¥�� ���ϱ� ����
-		//String ss = sdf.format(new java.util.Date()); // ���� ��¥
+
+	public boolean returnBook(String memberID, String ISBN) {
 		Date returnDate = new Date(System.currentTimeMillis());
 
 		BorrowInfo borrowInfo = getBorrowInfo(memberID, ISBN);
+		if (borrowInfo != null) {
+			borrowInfo.setReturnDate(returnDate);
+			borrowInfoDAO.update(borrowInfo);
+			System.out.println("Update BorrowInfo.");
 
-		borrowInfo.setReturnDate(returnDate);				// ���� ��¥ ����
-		borrowInfoDAO.update(borrowInfo); 						// �뿩 �̷� ����
-		System.out.println("Update BorrowInfo.");
+			MemberInfo memberInfo = getMemberInfo(memberID);
 
-		MemberInfo memberInfo = getMemberInfo(memberID);
-		
-		int point = calcPoint(memberInfo.getBorrowableTerm(), borrowInfo.getBorrowDate(), returnDate);	// �뿩�Ⱓ ���
-		System.out.println("point = " + point);
-		
-		memberInfo.setAllPoint(memberInfo.getAllPoint() + point);
-		memberInfo.setMonthPoint(memberInfo.getMonthPoint() + point);
-		int borrowedBook = memberInfo.getBorrowedBookCount();
-		memberInfo.setBorrowedBookCount(borrowedBook - 1);
-		memberInfoDAO.update(memberInfo);						// ȸ������ ����
-		System.out.println("update memberInfo");
-		
-		BookInfo bookInfo = getBookInfo(ISBN);
-		bookInfo.setBookState(1);
-		bookInfoDAO.update(bookInfo);							// �������� ����
-		System.out.println("update bookInfo");
-	}
-	public int calcPoint(int borrowableTerm, Date start, Date end){
-		if(end.compareTo(start) > borrowableTerm){
-			return -5;
+			int point = calcPoint(memberInfo.getBorrowableTerm(), borrowInfo.getBorrowDate(), returnDate); // �뿩�Ⱓ
+																											// ���
+			System.out.println("point = " + point);
+
+			memberInfo.setAllPoint(memberInfo.getAllPoint() + point);
+			memberInfo.setMonthPoint(memberInfo.getMonthPoint() + point);
+			int borrowedBook = memberInfo.getBorrowedBookCount();
+			memberInfo.setBorrowedBookCount(borrowedBook - 1);
+			memberInfoDAO.update(memberInfo);
+			System.out.println("update memberInfo");
+
+			BookInfo bookInfo = getBookInfo(ISBN);
+			bookInfo.setBookState(1);
+			bookInfoDAO.update(bookInfo);
+			System.out.println("update bookInfo");
+			return true;
 		}
-		else{
+		else {
+			System.out.println("Failed to get BorrowInfo.");
+			return false;
+		}
+	}
+
+	public int calcPoint(int borrowableTerm, Date start, Date end) {
+		if (end.compareTo(start) > borrowableTerm) {
+			return -5;
+		} else {
 			return 5;
 		}
 	}
-	/*
-	 * public List<Member> get(){ return memberInfoDAO.getMemberInfo(); }
-	 */
 }
