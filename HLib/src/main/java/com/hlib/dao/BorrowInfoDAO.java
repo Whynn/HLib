@@ -47,7 +47,7 @@ public class BorrowInfoDAO {
 		String ISBN = borrowInfo.getBookInfo_ISBN();
 		String memberID = borrowInfo.getMemberInfo_MemberID();
 		
-		String sqlStatement = "insert borrowinfo BookInfo_ISBN = ?, MemeberInfo_MemberID = ?, BorrowedDate = ?";
+		String sqlStatement = "insert borrowinfo BookInfo_ISBN = ? and MemeberInfo_MemberID = ? and BorrowedDate = ?";
 		return (jdbcTemplateObject.update(sqlStatement, new Object[]{ISBN, memberID, borrowDate}) == 1);
 	}
 	public boolean update(BorrowInfo borrowInfo){
@@ -55,7 +55,7 @@ public class BorrowInfoDAO {
 		String ISBN = borrowInfo.getBookInfo_ISBN();
 		String memberID = borrowInfo.getMemberInfo_MemberID();
 		
-		String sqlStatement = "update borrowinfo set ReturnDate = ? where MemberInfo_MemberID = ? and BookInfo_ISBN = ?";
+		String sqlStatement = "update borrowinfo set ReturnDate = ? where MemberInfo_MemberID = ? and BookInfo_ISBN = ? and ReturnDate is null";
 		return (jdbcTemplateObject.update(sqlStatement, new Object[]{returnDate, memberID, ISBN}) == 1);
 	}
 }

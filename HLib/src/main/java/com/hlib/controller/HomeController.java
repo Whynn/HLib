@@ -47,7 +47,7 @@ public class HomeController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		try {
+		try {		// 처음에 접속할때 null뜨는 것을 넘어가려고 try - catch 문을 삽입
 			String ID = request.getParameter("ID");
 			String PW = request.getParameter("PW");
 			System.out.println(ID);
@@ -64,7 +64,6 @@ public class HomeController {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				// model.addAttribute("msg", "잘못된 ID나 PW입니다. 다시 입력해주세요.");
 			} else {
 				return "manager";
 			}

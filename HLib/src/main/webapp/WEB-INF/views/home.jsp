@@ -12,7 +12,7 @@
 		Please Login.<br />
 		ID : <input type="text" name="ID" /><br />
 		PW : <input type="text" name="PW" /><br />
-		<input type="submit" value="Login"><br />
+		<input type="submit" value="Login" name="loginButton"><br />
 	</form>
 </body>
 </html>

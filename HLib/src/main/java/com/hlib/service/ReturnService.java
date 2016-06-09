@@ -85,7 +85,6 @@ public class ReturnService {
 		long diff = (end.getTime() - start.getTime()) / (24 * 60 * 60 * 1000);
 		int days = (int)diff - borrowableTerm;
 		System.out.println(diff);
-		System.out.println("대여기간 : " + days +"넘김, 대여가능기간 : "+ borrowableTerm);
 		if (days > 0) {
 			System.out.println("대여기간 : " + days*(-1) +"넘김, 대여가능기간 : "+ borrowableTerm);
 			return (days) * (-5);
