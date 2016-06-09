@@ -32,8 +32,15 @@ public class BorrowInfoDAO {
 		return this.jdbcTemplateObject.queryForObject(sqlStatement, Integer.class);
 	}
 	public BorrowInfo getBorrowInfo(String memberID, String ISBN) {
-		String sqlStatement = "select * from borrowinfo where MemberInfo_MemberID = ? and BookInfo_ISBN = ? and ReturnDate = null";
-		return jdbcTemplateObject.queryForObject(sqlStatement, new Object[]{memberID, ISBN}, new BorrowInfoMapper());
+		System.out.println(memberID +", "+ ISBN);
+		String sqlStatement = "select * from borrowinfo where MemberInfo_MemberID = ? and BookInfo_ISBN = ? and ReturnDate is null";
+		BorrowInfo result = null;
+		try{
+		result= jdbcTemplateObject.queryForObject(sqlStatement, new Object[]{memberID, ISBN}, new BorrowInfoMapper());
+		}catch(EmptyResultDataAccessException e){
+			
+		}
+		return result;
 	}
 	public boolean insert(BorrowInfo borrowInfo){
 		Date borrowDate = borrowInfo.getReturnDate();

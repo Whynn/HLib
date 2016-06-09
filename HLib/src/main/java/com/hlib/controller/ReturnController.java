@@ -1,11 +1,14 @@
 package com.hlib.controller;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.sql.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -41,7 +44,7 @@ public class ReturnController {
 	}
 
 	@RequestMapping(value = "/return")
-	public String Return(HttpServletRequest request, Model model) {
+	public String Return(HttpServletRequest request, HttpServletResponse response, Model model) {
 		// log
 		System.out.println("return()");
 		boolean result = false;
@@ -62,8 +65,19 @@ public class ReturnController {
 		}
 		if(result)
 			return "check";
-		else
-			return "fail";	
+		else{
+			try {
+				response.setContentType("text/html;charset=utf-8;");
+				PrintWriter out = response.getWriter();
+				out.println("<script>alert('대여정보를 불러오지 못했습니다.');</script>");
+				out.flush();
+				System.out.println("alert()");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return "request";
+		}
 	}
 
 	@RequestMapping(value = "/check", method = RequestMethod.GET)
