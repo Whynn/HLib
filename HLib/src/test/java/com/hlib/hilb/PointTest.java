@@ -30,8 +30,9 @@ public class PointTest {
 		
 		return Arrays.asList(new Object[][] {
 			{5, new Date(System.currentTimeMillis())},
-			{5, formatter.parse("2016-05-29").getTime()},
-			{-155, formatter.parse("2016-04-29").getTime()}
+			{5, new Date(formatter.parse("2016-05-29").getTime())},
+			{-150, new Date(formatter.parse("2016-04-29").getTime())},
+			{-65, new Date(formatter.parse("2016-05-15").getTime())}
 		});
 	}
 
