@@ -40,7 +40,7 @@ public class MemberInfoDAO {
 		} else
 			System.out.println("object != null");
 
-		String sqlStatement = "select * from memberinfo order by AllPoint DESC";
+		String sqlStatement = "select * from memberinfo order by MonthPoint DESC";
 		return jdbcTemplateObject.query(sqlStatement, new MemberInfoMapper());
 	}
 

@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
-<title>Insert title here</title>
+<title>Good User Select</title>
 </head>
 <body>
 	<!-- print List of Good Users -->
@@ -15,7 +15,7 @@
 			<tr>
 				<td><c:out value="${status.count}. "></c:out></td>
 				<td><c:out value="${members.memberID}"></c:out></td>
-				<td><c:out value="${members.allPoint}"></c:out></td>
+				<td><c:out value="${members.monthPoint}"></c:out></td>
 			</tr>
 		</c:forEach>
 	</table>

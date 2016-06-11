@@ -16,8 +16,8 @@ public class MemberInfoMapper implements RowMapper<MemberInfo> {
 		memberInfo.setMemberID(rs.getString("memberID"));
 		memberInfo.setAllPoint(rs.getInt("AllPoint"));
 		memberInfo.setMonthPoint(rs.getInt("MonthPoint"));
-		memberInfo.setBorrowableBookCount(rs.getInt("BorrowedBookCount"));
-		memberInfo.setBorrowedBookCount(rs.getInt("BorrowableBookCount"));
+		memberInfo.setBorrowableBookCount(rs.getInt("BorrowableBookCount"));
+		memberInfo.setBorrowedBookCount(rs.getInt("BorrowedBookCount"));
 		memberInfo.setBorrowableTerm(rs.getInt("BorrowableTerm"));
 		
 		return memberInfo;

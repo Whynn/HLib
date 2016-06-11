@@ -65,6 +65,9 @@ public class ReturnService {
 			memberInfo.setAllPoint(memberInfo.getAllPoint() + point);
 			memberInfo.setMonthPoint(memberInfo.getMonthPoint() + point);
 			int borrowedBook = memberInfo.getBorrowedBookCount();
+			
+			System.out.println("borrowed : " + borrowedBook);
+			
 			memberInfo.setBorrowedBookCount(borrowedBook - 1);
 			memberInfoDAO.update(memberInfo);
 			System.out.println("update memberInfo");
@@ -86,7 +89,11 @@ public class ReturnService {
 		int days = (int)diff - borrowableTerm;
 		System.out.println(diff);
 		if (days > 0) {
-			System.out.println("대여기간 : " + days*(-1) +"넘김, 대여가능기간 : "+ borrowableTerm);
+			System.out.println("대여기간: " + days*(-1) +"넘김, 대여가능기간 : "+ borrowableTerm);
+			
+			int tmp = days * (-5);
+			System.out.println(tmp);
+			
 			return (days) * (-5);
 		} else {
 			System.out.println("대여기간 내 반납");

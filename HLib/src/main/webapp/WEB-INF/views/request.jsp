@@ -10,7 +10,7 @@
 	<form name ="form" method ="post" action="./return">
 		Book ID (ISBN) : <input type="text" name="ISBN"><br />
 		User ID : <input type="text" name="memberID"><br />
-		<input type="submit" value="¹Ý³³ÇÏ±â"><br />
+		<input type="submit" value="¹Ý³³ÇÏ±â" name="returnSubmit"><br />
 	</form>
 </body>
 </html>

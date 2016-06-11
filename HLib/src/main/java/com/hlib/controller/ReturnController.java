@@ -16,18 +16,26 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.hlib.domain.BookInfo;
 import com.hlib.domain.BorrowInfo;
 import com.hlib.domain.MemberInfo;
+import com.hlib.service.CheckService;
 import com.hlib.service.ReturnService;
 
 @Controller
 public class ReturnController {
 	private ReturnService returnService;
+	private CheckService checkService;
 
 	// IReturn iReturn;
 	@Autowired
 	public void setReturnService(ReturnService returnService) {
 		this.returnService = returnService;
+	}
+	
+	@Autowired
+	public void setCheckService(CheckService checkService) {
+		this.checkService = checkService;
 	}
 
 	@RequestMapping(value = "/request", method = RequestMethod.GET)
@@ -63,8 +71,19 @@ public class ReturnController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		if(result)
+		if(result){
+			
+			checkService.setBookInfo(ISBN);
+			String bookName = checkService.getBookName();
+			
+			model.addAttribute("memberID", memberID);
+			model.addAttribute("bookName", bookName);
+			
+			System.out.println("memberID : " + memberID);
+			System.out.println("bookName : " + bookName);
+			
 			return "check";
+		}
 		else{
 			try {
 				response.setContentType("text/html;charset=utf-8;");
@@ -80,7 +99,7 @@ public class ReturnController {
 		}
 	}
 
-	@RequestMapping(value = "/check", method = RequestMethod.GET)
+	@RequestMapping(value = "/check")
 	public String ReturnCheck(HttpServletRequest request, Model model) {
 		System.out.println("returnCheck()");
 		try {
@@ -88,7 +107,7 @@ public class ReturnController {
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
-
+		
 		String memberID = request.getParameter("memberID");
 		String ISBN = request.getParameter("ISBN");
 

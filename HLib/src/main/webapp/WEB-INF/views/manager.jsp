@@ -8,8 +8,8 @@
 </head>
 <body>
 	<form action="">
-		<input type="button" value="Return Request" onclick="location.href='./request'"><br />
-		<input type="button" value="Select Good User Request" onclick="location.href='./select'"><br />
+		<input type="button" value="Return Request" name="requestButton" onclick="location.href='./request'"><br />
+		<input type="button" value="Select Good User Request" name="selectButton" onclick="location.href='./select'"><br />
 	</form>
 </body>
 </html>
